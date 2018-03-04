@@ -7,7 +7,7 @@
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1"
   },
-  "homepage": "https://flubbex.github.io/venus",
+  "homepage": "https://flubbex.github.io/venus/build",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
