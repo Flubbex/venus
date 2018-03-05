@@ -1,14 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ui    from "./ui"
+import setup      from "./game"
 
-import "./style/bulma.css";
-import "./style/App.css";
+setup(ui,true);
 
-import App from './App';
-
-
-import registerServiceWorker from './registerServiceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
-registerServiceWorker();

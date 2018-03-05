@@ -4,6 +4,10 @@ import Navbar       from './component/navbar';
 import Tilelayout   from './component/tilelayout';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = props.state;
+  }
   render() {
     return (
       <div className="App">
@@ -13,7 +17,7 @@ class App extends Component {
           </div>        
         </section>
         
-        <Tilelayout/>
+        <Tilelayout state={this.state}/>
       </div>
     );
   }

@@ -6,7 +6,7 @@ class Minimap extends Component {
       <div className="tile is-child box">
         <h1 className="is-size-5">Minimap</h1>
         <figure className="image is-128x128">
-          <img src="https://bulma.io/images/placeholders/128x128.png"/>
+          <img src="https://bulma.io/images/placeholders/128x128.png" alt="display"/>
         </figure>
       </div>
     );

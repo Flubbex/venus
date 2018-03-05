@@ -6,7 +6,7 @@ class Display extends Component {
       <div className="tile is-child box">
       <h1 className="is-size-5">Map</h1>
         <figure className="image is-4by3">
-          <img src="https://bulma.io/images/placeholders/256x256.png"/>
+          <img src="https://bulma.io/images/placeholders/256x256.png" alt="display"/>
         </figure>
       </div>
     );

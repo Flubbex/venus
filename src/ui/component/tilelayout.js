@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import {Minimap,Status,Display,Nearby,Console} from './game';
 
 class Tilelayout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = props.state;
+  }
   render() {
     return (
         <section className="section">
@@ -17,7 +21,7 @@ class Tilelayout extends Component {
             
               <Minimap/>
               
-              <Status/>
+              <Status player={this.state.player}/>
               
               <Nearby/>
               
