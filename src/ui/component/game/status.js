@@ -3,8 +3,14 @@ import React, { Component } from 'react';
 class Status extends Component {
   constructor(props) {
     super(props);
-    this.state = props.player;
+    this.state = props.state;
   }
+  
+  componentWillReceiveProps(nextProps)
+  {
+    this.setState(nextProps.state);
+  }
+  
   render() {
     return (
       <div className="tile is-parent box">

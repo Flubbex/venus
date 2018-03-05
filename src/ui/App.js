@@ -8,10 +8,16 @@ class App extends Component {
     super(props);
     this.state = props.state;
   }
+  
+  componentWillReceiveProps(nextProps)
+  {
+    this.setState(nextProps.state);
+  }
+  
   render() {
     return (
       <div className="App">
-        <section className="App-header hero is-primary">
+        <section className="App-header hero is-primary is-hidden-mobile">
           <div className="hero-footer">
             <Navbar/>
           </div>        

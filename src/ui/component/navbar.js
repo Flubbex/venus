@@ -5,10 +5,10 @@ import logo from '../logo.svg';
 class Navbar extends Component {
   render() {
     return (
-        <nav className="navbar is-transparent">
+        <nav className="navbar">
           <div className="navbar-brand">
             <a className="navbar-item" href="">
-              <img src={logo} alt="Venus" className="image is-96x96"/>
+              <img src={logo} alt="Venus" className="image is-64x64"/>
             </a>
           </div>
           

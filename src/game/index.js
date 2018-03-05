@@ -2,6 +2,16 @@ var Freezer = require('freezer-js');
 
 function setup(ui,debug=false){
   var state = new Freezer({
+        console:{messages:[{turn:0,text:"Some message"}]},
+        map:{
+          tiles:[],
+          visible:{tiles:[]},
+          minimap:{tiles:[]},
+          monster:{tiles:[]},
+        },
+        dungeon:{
+          depth:1
+        },
         player:{
         name:"Player",
         health:[10,10],
@@ -18,15 +28,21 @@ function setup(ui,debug=false){
       }
     });
   
-  ui.setup(state.get());
+  var game = {
+    state:state,
+    ui:ui.setup(state.get())
+  };
+  
+  state.on('update',(newstate)=>{
+    game.ui.setState((oldstate,props)=>newstate)
+    console.log("state updated",newstate);
+  });
   
   if (!debug)
     return
   
-  window.onload = (e) => console.log("Document ready",ui,state.get());
-  window.ui     = ui;
-  window.state  = state;
-  
+  window.game = game;
+  window.onload = (e) => console.log("Document ready",window.game);
 }
 
 export default setup

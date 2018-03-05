@@ -9,12 +9,14 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 function render(state){
-  ReactDOM.render(  <App state={state}/>,document.getElementById('root'));
+  console.log("rendering",state)
+  return ReactDOM.render(  <App state={state}/>,document.getElementById('root'));
 }
 
 function setup(initialstate){
-  render(initialstate);
+  var out = render(initialstate);
   registerServiceWorker();
+  return out;
 }
 
 

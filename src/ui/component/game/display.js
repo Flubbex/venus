@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 
 class Display extends Component {
+  constructor(props) {
+    super(props);
+    this.state = props.state;
+  }
+  
+  componentWillReceiveProps(nextProps)
+  {
+    this.setState(nextProps.state);
+  }
+  
   render() {
     return (
       <div className="tile is-child box">

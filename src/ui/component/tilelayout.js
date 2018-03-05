@@ -7,23 +7,29 @@ class Tilelayout extends Component {
     super(props);
     this.state = props.state;
   }
+  
+  componentWillReceiveProps(nextProps)
+  {
+    this.setState(nextProps.state);
+  }
+  
   render() {
     return (
         <section className="section">
           <div className="tile is-ancestor">
             <div className="tile is-parent">
             
-              <Display/>
+              <Display state={this.state.map.visible} />
               
             </div>
             
             <div className="tile is-parent is-vertical">
             
-              <Minimap/>
+              <Minimap state={this.state.map.minimap} />
               
-              <Status player={this.state.player}/>
+              <Status state={this.state.player}/>
               
-              <Nearby/>
+              <Nearby state={this.state.nearby} />
               
             </div>
             
@@ -32,7 +38,7 @@ class Tilelayout extends Component {
           <div className="tile is-ancestor">
             <div className="tile is-parent">
             
-              <Console/>
+              <Console state={this.state.console}/>
             
             </div>
           </div>
