@@ -11,7 +11,6 @@ class App extends Component {
   
   shouldComponentUpdate(nextprops,nextstate)
   {
-    console.log("App wants update, returning",nextprops.state!==nextstate)
     return nextprops.state!==nextstate;
   }
   

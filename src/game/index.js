@@ -6,9 +6,8 @@ import Player from './player';
 function setup(ui,debug=false){
   
   var state = new Freezer({
-        turn:0,
-        schedule:[],
-        console:{messages:[{turn:0,text:"Some message"}]},
+        time:0,
+        console:{messages:[]},
         map:{
           key:[0,1,0.5,0.25],
           size:[25,25],
@@ -36,23 +35,37 @@ function setup(ui,debug=false){
       }
     });
   
+  var schedule = new ROT.Scheduler.Action();
+  
   var game = {
     state:state,
     ui:ui.setup(state.get()),
+    schedule,
+    engine:new ROT.Engine(schedule),
     log:(message)=>game.state.get()
                     .console.messages.unshift({
-                                        turn:game.state.get().turn,
+                                        time:game.state.get().time,
                                          text:message})
   };
+  
+  game.process = [Player].map((factory)=>factory(game));
   
   state.on('update',(newstate)=>{
     game.ui.setState((oldstate,props)=>newstate)
   });
   
+  state.on('do',(action)=>{
+    game.process.some((module)=>
+      module.handle 
+        ? !module.handle(action)
+        : true
+    )
+  });
   
-  window.onload = (e) => game.log("Welcome to Venus");
-  
-  Player(game.state)
+  window.onload = (e) => {
+    game.engine.start();
+    game.log("Welcome to Venus");
+  }
   
   if (!debug)
     return

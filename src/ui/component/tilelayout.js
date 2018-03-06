@@ -27,7 +27,7 @@ class Tilelayout extends Component {
             
               <Minimap state={{map:this.state.map,player:this.state.player}} />
               
-              <Status state={this.state.player}/>
+              <Status state={{player:this.state.player,time:this.state.time}}/>
               
               <Nearby state={this.state.map} />
               
