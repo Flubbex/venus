@@ -18,6 +18,7 @@ class Status extends Component {
           <h1 className="is-size-5">Status</h1>
           <ul>
             <li>Name:   {this.state.name}             </li>
+            <li>Pos:    {this.state.position.join("/")}</li>
             <li>Health: {this.state.health.join('/')} </li>
             <li>Mana:   {this.state.mana.join('/')}   </li>
             <li>XL:     {this.state.xl}               </li>

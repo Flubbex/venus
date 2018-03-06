@@ -19,17 +19,17 @@ class Tilelayout extends Component {
           <div className="tile is-ancestor">
             <div className="tile is-parent">
             
-              <Display state={this.state.map.visible} />
+              <Display state={{map:this.state.map,player:this.state.player}} />
               
             </div>
             
             <div className="tile is-parent is-vertical">
             
-              <Minimap state={this.state.map.minimap} />
+              <Minimap state={{map:this.state.map,player:this.state.player}} />
               
               <Status state={this.state.player}/>
               
-              <Nearby state={this.state.nearby} />
+              <Nearby state={this.state.map} />
               
             </div>
             

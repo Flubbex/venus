@@ -9,6 +9,12 @@ class App extends Component {
     this.state = props.state;
   }
   
+  shouldComponentUpdate(nextprops,nextstate)
+  {
+    console.log("App wants update, returning",nextprops.state!==nextstate)
+    return nextprops.state!==nextstate;
+  }
+  
   componentWillReceiveProps(nextProps)
   {
     this.setState(nextProps.state);
