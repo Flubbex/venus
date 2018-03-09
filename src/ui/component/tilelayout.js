@@ -1,36 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import {Minimap,Status,Display,Nearby,Console} from './game';
+import {Minimap,Status,Display,Console} from './game';
 
-class Tilelayout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = props.state;
-  }
-  
-  componentWillReceiveProps(nextProps)
-  {
-    this.setState(nextProps.state);
-  }
-  
-  render() {
+var config = {
+             width:25,
+             height:25,
+             fontSize:16,
+             fontFamily:"arial",
+             terrain :[".","#","|"]
+             };
+                         
+var Tilelayout = (props) => {
+    var displayState = {
+                   config,
+                   map:props.state.map,
+                   player:props.state.player
+                  },
+        minimapState = {
+                   config:Object.assign({},config,{
+                    width:12,
+                    height:12,
+                    fontSize:12,
+                   }),
+                   map:props.state.map,
+                   player:props.state.player
+                  };     
     return (
         <section className="section">
           <div className="tile is-ancestor">
             <div className="tile is-parent">
             
-              <Display state={{map:this.state.map,player:this.state.player}} />
+              <Display state={displayState} />
               
             </div>
             
             <div className="tile is-parent is-vertical">
             
-              <Minimap state={{map:this.state.map,player:this.state.player}} />
+              <Minimap state={minimapState} />
               
-              <Status state={{player:this.state.player,time:this.state.time}}/>
-              
-              <Nearby state={this.state.map} />
-              
+              <Status state={{player:props.state.player,time:props.state.core.time}}/>
             </div>
             
           </div>
@@ -38,13 +46,12 @@ class Tilelayout extends Component {
           <div className="tile is-ancestor">
             <div className="tile is-parent">
             
-              <Console state={this.state.console}/>
+              <Console state={props.state.console}/>
             
             </div>
           </div>
         </section>
     );
   }
-}
 
 export default Tilelayout;

@@ -18,6 +18,8 @@
     "bulma": "^0.6.2",
     "freezer-js": "^0.14.0",
     "mousetrap": "^1.6.1",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
     "rot-js": "^0.6.5"
   }
 }

@@ -2,7 +2,7 @@ import Mousetrap from 'mousetrap'
 
 function Player(game){
   
-  var freezer   = game.state,
+  var state   = game.state,
       engine    = game.engine,
       log       = game.log,
       schedule  = game.schedule;
@@ -22,7 +22,7 @@ function Player(game){
   }
   
   var move = (key) => {
-        var pos = freezer.get()
+        var pos = state.get()
                 .player
                 .position,
 
@@ -32,7 +32,7 @@ function Player(game){
                                 movebinds[key]
                                   ][i] );
 
-        freezer.get()
+        state.get()
         .player.set({position:newpos})
         schedule.setDuration(1)
         engine.unlock();
@@ -43,7 +43,7 @@ function Player(game){
   var actor =  {
       key: "player",
       act: function() {
-           freezer.get().set('time',schedule.getTime());
+           state.get().set('time',schedule.getTime());
            engine.lock();
       },
       getSpeed: function() {

@@ -10,7 +10,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 function render(state){
   console.log("rendering")
-  return ReactDOM.render(  <App state={state}/>,document.getElementById('root'));
+  return ReactDOM.render(  <App state={state}/>,
+                           document.getElementById('root'));
 }
 
 function setup(initialstate){
