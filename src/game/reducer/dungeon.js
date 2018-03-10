@@ -2,7 +2,8 @@ import ROT from 'rot-js';
 
 export default  {
   generate:(state,action)=>{
-  var map = new ROT.Map[action.style||"Digger"]
+    console.log("g",action)
+  var map = new ROT.Map[action.style||"Rogue"]
                        (action.size[0],action.size[1]),
       terrain = [],
       enemy   = [],

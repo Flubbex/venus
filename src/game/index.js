@@ -1,4 +1,5 @@
 import ROT from 'rot-js';
+import Mousetrap from 'mousetrap';
 
 import state from './state';
 
@@ -30,8 +31,8 @@ function setup(ui,debug=false){
       return result.length 
         ? result.map(handle)
         : handle(result) 
-    else if (result)
-      return result;
+   
+    return result;
   };
   
   var game = {
@@ -45,6 +46,12 @@ function setup(ui,debug=false){
 
   state.on('update',ui.render);
 
+  var movebinds = {"up":0,"down":1,"left":2,"right":3};
+  Mousetrap.bind(Object.keys(movebinds),(event,key)=>
+    game.handle("entity.move",{direction:movebinds[key]})
+  )
+  
+  
   window.onload = (e) => {
     game.engine.start();
     game.log("Welcome to Venus");

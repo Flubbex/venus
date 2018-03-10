@@ -5,11 +5,16 @@ import Display from "../game/display";
 
 
 class Minimap extends Display {
-
-  //componentWillReceiveProps(nextProps)
-  //{
-    //todo: display to minimap state
-  //}
+  
+  componentWillReceiveProps(nextProps)
+  {
+    this.renderMap(nextProps.state.map);
+                   
+    this.display.draw(
+                 nextProps.state.player.position[0],
+                 nextProps.state.player.position[1],
+                 "@");
+  }
   
   render() {
     return (

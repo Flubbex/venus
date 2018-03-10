@@ -6,15 +6,11 @@ export default  {
     
   },
   newgame:(state,action)=>{
-    return {
+    return Object.assign({
       type:"dungeon.generate",
       key:[0,1,0.5,0.25],
-      size:[Math.floor(Math.random()*16)+8,
-            Math.floor(Math.random()*16)+8],
-      terrain:[],
-      enemy:{},
-      item:[]
-    }
+      size:[33,33]
+    },action.map);
   
   },
   lock:(state,action)=>{

@@ -24,11 +24,8 @@ class Display extends Component {
     return tileinfo.slice(0,2)
             .concat(this.props.state.config.terrain[tileinfo[2]])
   }
-  renderMap(nextProps)
+  renderMap(mapdata=this.props.state.map,offset=[0,0])
   {
-    var mapdata = nextProps ? nextProps.state.map
-                            : this.props.state.map;
-        
     if (!mapdata.size  || !mapdata.terrain || 
         !mapdata.enemy || !mapdata.item)
       throw new Error("Renderer received invalid mapdata",mapdata);
@@ -38,6 +35,8 @@ class Display extends Component {
       var tile = this.entityAt(mapdata,tileinfo[0],tileinfo[1]) ||
                    this.terrainTile(tileinfo);
       
+      offset.map((v,i)=>tile[i] += v)
+      
       return this.display.draw.apply(this.display,tile);
     
     });
@@ -45,10 +44,18 @@ class Display extends Component {
   
   componentWillReceiveProps(nextProps)
   {
-    this.renderMap(nextProps);
-    this.display.draw(nextProps.state.player.position[0],
-                 nextProps.state.player.position[1],
-                 "@")   
+    this.renderMap(nextProps.state.map,
+                   [
+                   Math.floor(nextProps.state.config.width/2)
+                   -nextProps.state.player.position[0],
+                   Math.floor(nextProps.state.config.height/2)
+                   -nextProps.state.player.position[1],
+                   ]);
+                   
+    this.display.draw(
+                 Math.floor(nextProps.state.config.width/2),
+                 Math.floor(nextProps.state.config.height/2),
+                 "@");
   }
 
   insertDisplay(node)

@@ -3,9 +3,9 @@ import React from 'react';
 import {Minimap,Status,Display,Console} from './game';
 
 var config = {
-             width:25,
-             height:25,
-             fontSize:16,
+             width:20,
+             height:20,
+             fontSize:18,
              fontFamily:"arial",
              terrain :[".","#","|"]
              };
@@ -18,9 +18,9 @@ var Tilelayout = (props) => {
                   },
         minimapState = {
                    config:Object.assign({},config,{
-                    width:12,
-                    height:12,
-                    fontSize:12,
+                    width:33,
+                    height:33,
+                    fontSize:6,
                    }),
                    map:props.state.map,
                    player:props.state.player

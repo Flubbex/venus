@@ -16,6 +16,7 @@ export default {
 
   
   enemy.set({position:newpos});
+  
   return {
     type:"core.unlock",
     duration:1
