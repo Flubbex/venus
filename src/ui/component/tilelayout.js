@@ -9,7 +9,7 @@ var config = {
              fontFamily:"arial",
              terrain :[".","#","|"]
              };
-                         
+
 var Tilelayout = (props) => {
     var displayState = {
                    config,
@@ -25,33 +25,35 @@ var Tilelayout = (props) => {
                    map:props.state.map,
                    player:props.state.player
                   };     
-    return (
+    return (props.state.core.state === "game")
+    ? (
         <section className="section">
           <div className="tile is-ancestor">
             <div className="tile is-parent">
-            
+
               <Display state={displayState} />
-              
+
             </div>
-            
+
             <div className="tile is-parent is-vertical">
-            
+
               <Minimap state={minimapState} />
-              
+
               <Status state={{player:props.state.player,time:props.state.core.time}}/>
             </div>
-            
+
           </div>
-          
+
           <div className="tile is-ancestor">
             <div className="tile is-parent">
-            
+
               <Console state={props.state.console}/>
-            
+
             </div>
           </div>
         </section>
-    );
+    )
+    : null;
   }
 
 export default Tilelayout;

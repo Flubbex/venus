@@ -1,9 +1,9 @@
-const generate = (key,size,style,level)=> ({
+const generate = (key,size,style,config)=> ({
   type:"console.log",
   key,
   size,
   style,
-  level
+  config
 })
 
 export {log}

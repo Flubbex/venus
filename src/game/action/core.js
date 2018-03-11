@@ -4,6 +4,16 @@ const newgame = (race,background)=> ({
   background
 })
 
+const loadgame = (slot)=> ({
+  type:"core.loadgame",
+  slot
+})
+
+const savegame = (slot)=> ({
+  type:"core.savegame",
+  slot
+})
+
 const start = ()=> ({
   type:"core.start"
 })
@@ -12,19 +22,14 @@ const stop = ()=> ({
   type:"core.stop"
 })
 
-const lock = (duration) => ({
-  type:"core.lock",
-  duration
+const error = (message)=> ({
+  type:"core.error",
+  message
 })
 
-const unlock = (delay) => ({
-  type:"core.unlock",
-  delay
+const go = (state)=> ({
+  type:"core.go",
+  state
 })
 
-const go = (frame)=> ({
-  type:"core.stop",
-  frame
-})
-
-export {newgame,start,stop}
+export {newgame,loadgame,savegame,error,start,stop,go}

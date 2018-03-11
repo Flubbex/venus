@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Navbar       from './component/navbar';
 import Tilelayout   from './component/tilelayout';
+import Overlay      from './component/overlay';
 
 class App extends Component {
   render() {
@@ -14,6 +15,8 @@ class App extends Component {
         </section>
         
         <Tilelayout state={this.props.state}/>
+        
+        <Overlay state={this.props.state}/>
       </div>
     );
   }

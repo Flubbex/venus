@@ -5,9 +5,7 @@ export default {
 
   var enemy = state.get()
               .map
-              .enemy[action.entityid] ||
-              state.get()
-              .player,
+              .enemy[action.entityid],
               
       pos = enemy.position,
 
