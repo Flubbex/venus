@@ -12,10 +12,10 @@ export default {
     .container[state.get().core.state] &&
     state.get()
     .binding
-    .container[state.get().core.state][action.key] ?
-    {
-      type: state.get()
+    .container[state.get().core.state][action.key]
+    ? state.get()
         .binding
         .container[state.get().core.state][action.key]
-    } : null)
+    : null
+   )
 }

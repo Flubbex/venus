@@ -5,12 +5,17 @@ export default  {
   stop:(state,action)=>{
 
   },
-  tick:(state,action)=>(
-    Object.keys(state.get().map.enemy).length > 0
+  tick:(state,action)=>{
+    state.get().core.set('time',
+        state.get().core.time+action.duration);
+        
+    return (Object.keys(state.get().map.enemy).length > 0
     ? Object.keys(state.get().map.enemy)
-    .map((entityid)=>({type:"entity.tick",entityid}))
-    : null
-  ),
+    .map((entityid)=>({type:"entity.tick",
+                       duration:action.duration,
+                       entityid}))
+    : [])
+  },
   newgame:(state,action)=>{
     state.get().console.messages.push({
                                       id:Date.now(),

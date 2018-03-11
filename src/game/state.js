@@ -4,8 +4,6 @@ var state = new Freezer({
     core:{
       state:"initialize",
       time:0,
-      action:null,
-      queue:[],
       history:[],
     },
     overlay:null,
@@ -19,14 +17,21 @@ var state = new Freezer({
           "l":"core.loadgame"
         },
         "game":{
-          "i":"player.inventory",
-          "e":"player.eat",
-          "d":"player.drop",
-          "f":"player.fire",
-          "w":"player.wield",
-          ">":"player.descend",
-          "<":"player.acscend"
-
+          "i":       "player.inventory",
+          "e":       "player.eat",
+          "d":       "player.drop",
+          "f":       "player.fire",
+          "w":       "player.wield",
+          ">":       "player.descend",
+          "<":       "player.acscend",
+          "up":      {type:"player.move",direction:0},
+          "down":    {type:"player.move",direction:1},
+          "left":    {type:"player.move",direction:2},
+          "right":   {type:"player.move",direction:3},
+          "home":    {type:"player.move",direction:4},
+          "pageup":  {type:"player.move",direction:5},
+          "end":     {type:"player.move",direction:6},
+          "pagedown":{type:"player.move",direction:7}
         }
       }
     },
@@ -49,6 +54,7 @@ var state = new Freezer({
       xl:1,
       ac:3,
       ev:3,
+      movespeed:1,
       exp:0
     },
     savegame:{

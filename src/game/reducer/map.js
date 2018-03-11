@@ -3,7 +3,7 @@ import ROT from 'rot-js';
 export default  {
   generate:(state,action)=>{
 
-  action.size  = action.size   || [32,32];
+  action.size  = action.size   || [33,33];
   action.style = action.style || "Digger";
 
   var map = new ROT.Map[action.style]

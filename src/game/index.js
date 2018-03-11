@@ -34,7 +34,7 @@ function setup(ui, debug = false) {
       null;
 
     if (result)
-      return result.length ?
+      return Array.isArray(result) ?
         result.map(handle) :
         handle(result)
   };
@@ -49,24 +49,16 @@ function setup(ui, debug = false) {
 
   state.on('update', ui.render);
 
-  var movebinds = {
-    "up": 0,
-    "down": 1,
-    "left": 2,
-    "right": 3
-  };
-
-  Mousetrap.bind(Object.keys(movebinds), (event, key) =>
-    game.handle("player.move", {
-      direction: movebinds[key]
-    })
-  )
+  Mousetrap.addKeycodes({
+    12: 'numpad5'
+  });
 
   Mousetrap.bind("abcdefghijklmnoqrstuvwxyz"
                 .split('')
-                .concat(['.',',','/','?'],
+                .concat(['up','down','left','right'],
+                        ['.',',','/','?'],
                         ['1','2','3','4','5','6','7','8','9','0'],
-                        ['esc','home','space',
+                        ['esc','home','space','end',
                          'pageup','pagedown',
                          'enter','tab','capslock']),
     (event, key) =>
