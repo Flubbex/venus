@@ -56,7 +56,7 @@ function setup(ui, debug = false) {
   Mousetrap.bind("abcdefghijklmnoqrstuvwxyz"
                 .split('')
                 .concat(['up','down','left','right'],
-                        ['.',',','/','?'],
+                        ['.',',','/','?','>','<'],
                         ['1','2','3','4','5','6','7','8','9','0'],
                         ['esc','home','space','end',
                          'pageup','pagedown',

@@ -1,12 +1,12 @@
 var modifier = [
-  [ 0, -1],
-  [ 0,  1],
-  [-1,  0],
-  [ 1,  0],
+  [0, -1],
+  [0, 1],
+  [-1, 0],
+  [1, 0],
   [-1, -1],
-  [ 1, -1],
-  [-1,  1],
-  [ 1,  1]
+  [1, -1],
+  [-1, 1],
+  [1, 1]
 ];
 
 export default {
@@ -26,7 +26,7 @@ export default {
       });
       return {
         type: "core.tick",
-        duration:enemy.movespeed
+        duration: enemy.movespeed
       }
     } else {
       return {
@@ -35,10 +35,70 @@ export default {
       }
     }
   },
+  eat: (state, action) => ({
+    type: "menu.show",
+    title: "Eat what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  drop: (state, action) => ({
+    type: "menu.show",
+    title: "Drop what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  fire: (state, action) => ({
+    type: "menu.show",
+    title: "Fire what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  quiver: (state, action) => ({
+    type: "menu.show",
+    title: "Quiver what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  quaff: (state, action) => ({
+    type: "menu.show",
+    title: "Quaff what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  wear: (state, action) => ({
+    type: "menu.show",
+    title: "Wear what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  remove: (state, action) => ({
+    type: "menu.show",
+    title: "Remove what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  wield: (state, action) => ({
+    type: "menu.show",
+    title: "Wield what?",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
   inventory: (state, action) => ({
-      type: "menu.show",
-      title: "Inventory",
-      nextstate: "game_inventory",
-      body: state.get().player.inventory.map((item) => item.name)
-    })
+    type: "menu.show",
+    title: "Inventory",
+    body: state.get().player.inventory.map((item) => item.name)
+  }),
+  ascend: (state, action) => (
+  state.get().map.features[
+    state.get().player.position.join(",")
+  ] && state.get().map.features[
+    state.get().player.position.join(",")
+  ].type === "stairway"
+   &&
+   state.get().map.features[
+     state.get().player.position.join(",")
+   ].direction === "up"
+  ? {
+    type: "dungeon.ascend"
+    }
+  : {
+    type: "console.log",
+    body: "You can't go up here"
+    }
+  ),
+  descend: (state, action) => ({
+    type: "dungeon.descend"
+  })
 }

@@ -16,6 +16,9 @@ var state = new Freezer({
           "n":"core.newgame",
           "l":"core.loadgame"
         },
+        "game_menu":{
+          "esc":"menu.hide"
+        },
         "game":{
           "i":       "player.inventory",
           "e":       "player.eat",
@@ -23,7 +26,7 @@ var state = new Freezer({
           "f":       "player.fire",
           "w":       "player.wield",
           ">":       "player.descend",
-          "<":       "player.acscend",
+          "<":       "player.ascend",
           "up":      {type:"player.move",direction:0},
           "down":    {type:"player.move",direction:1},
           "left":    {type:"player.move",direction:2},
@@ -37,7 +40,7 @@ var state = new Freezer({
     },
     map:null,
     dungeon:{
-      level:1,
+      level:0,
       mapset:[]
     },
     player:{
