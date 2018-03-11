@@ -1,9 +1,14 @@
 const generate = (key,size,style,config)=> ({
-  type:"console.log",
+  type:"dungeon.generate",
   key,
   size,
   style,
   config
 })
 
-export {log}
+const spawn = (entityid,data)=> ({
+  type:"dungeon.spawn",
+  entityid,
+  data
+})
+export {generate,spawn}

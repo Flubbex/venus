@@ -1,44 +1,23 @@
-import ROT from 'rot-js';
-
 export default  {
-  generate:(state,action)=>{
-  var map = new ROT.Map[action.style||"Digger"]
-                       (action.size[0],
-                        action.size[1],
-                        action.config),
-      terrain = {},
-      enemy   = {},
-      item    = {};
-
-  map.create((x,y,value)=>terrain[x+","+y] = value)
-
-  var rooms    = map.getRooms ? map.getRooms() : [],
-      halls    = map.getCorridors ? map.getCorridors() : [],
-      features = {};
-
-  features[rooms[0]._x1+","+rooms[0]._y1] =
-              {type:"stairway",
-               direction:"up",
-               tile:"<"};
-
-  features[rooms[rooms.length-1]._x1+","+rooms[rooms.length-1]._y1] =
-             {type:"stairway",
-              direction:"down",
-              tile:">"};
-
-  state.get().player.set('position',[rooms[0]._x1,rooms[0]._y1]);
-  
-  return state.get().set('map',{
-      key:action.key,
-      size:action.size,
-      terrain,
-      enemy,
-      item,
-      rooms,
-      halls,
-      features
-    })
+  generate:(state,action)=>(
+    {
+      type:"map.generate"
+    }
+  ),
+  spawn:(state,action)=>{
+    state.get().map.enemy.set(action.entityid,action.data)
   },
+  save:(state,action)=>{
+    state.get().dungeon.mapset.set(action.level,
+          state.get().map);
+  },
+  load:(state,action)=>(
+    {
+      type:"map.load",
+      map:state.get().dungeon.mapset[action.level||
+          state.get().dungeon.level]
+    }
+  ),
   ascend:(state,action)=>(
     state.get().dungeon.set('level',
           state.get().dungeon.level-1)

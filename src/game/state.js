@@ -8,11 +8,7 @@ var state = new Freezer({
       queue:[],
       history:[],
     },
-    overlay:{
-      title:"VENUS",
-    body: [{key:0,  body:"[N]ew  Game"},
-           {key:1,  body:"[L]oad Game"}]
-    },
+    overlay:null,
     console:{
       messages:[]
     },
@@ -21,16 +17,20 @@ var state = new Freezer({
         "mainmenu":{
           "n":"core.newgame",
           "l":"core.loadgame"
+        },
+        "game":{
+          "i":"player.inventory",
+          "e":"player.eat",
+          "d":"player.drop",
+          "f":"player.fire",
+          "w":"player.wield",
+          ">":"player.descend",
+          "<":"player.acscend"
+
         }
       }
     },
-    map:{
-      key:[0,1,0.5,0.25],
-      size:[25,25],
-      terrain:[],
-      enemy:{"10,10":{tile:"G"}},
-      item:["10,15":{tile:"i"}]
-    },
+    map:null,
     dungeon:{
       level:1,
       mapset:[]
@@ -40,6 +40,7 @@ var state = new Freezer({
       position:[0,0],
       health:[10,10],
       mana:[3,3],
+      inventory:[{name:"Ration",tile:"r"}],
       attributes:{
         strength:4,
         dexterity:4,

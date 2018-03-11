@@ -1,6 +1,6 @@
-const log = (message)=> ({
+const log = (body)=> ({
   type:"console.log",
-  message
+  body
 })
 
 export {log}

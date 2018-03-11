@@ -13,6 +13,9 @@ const savegame = (slot)=> ({
   type:"core.savegame",
   slot
 })
+const tick = ()=> ({
+  type:"core.tick"
+})
 
 const start = ()=> ({
   type:"core.start"

@@ -24,8 +24,8 @@ var Tilelayout = (props) => {
                    }),
                    map:props.state.map,
                    player:props.state.player
-                  };     
-    return (props.state.core.state === "game")
+                  };
+    return (props.state.core.state.startsWith("game"))
     ? (
         <section className="section">
           <div className="tile is-ancestor">

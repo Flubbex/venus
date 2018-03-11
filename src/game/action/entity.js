@@ -10,6 +10,11 @@ const quaff = (entityid,itemid)=> ({
   itemid
 })
 
+const tick = (entityid)=> ({
+  type:"entity.tick",
+  entityid
+})
+
 const move = (entityid,direction)=> ({
   type:"entity.move",
   entityid,
@@ -41,4 +46,5 @@ const die = (entityid,inflictor)=> ({
   inflictor
 })
 
-export {eat,quaff,move,attack,speak,hurt,die}
+export {eat,quaff,move,attack,
+        speak,hurt,die,tick}

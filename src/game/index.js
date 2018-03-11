@@ -13,23 +13,30 @@ import {
 
 function setup(ui, debug = false) {
 
-  var handle = (action,args) => {
+  var handle = (action, args) => {
     if (typeof(action) === "string")
-      action = Object.assign({type:action},args);
+      action = Object.assign({
+        type: action
+      }, args);
 
-  var parts = action.type.split("."),
-      result = parts.length > 1 ?
+    if (!action.type)
+      throw new Error("Invalid action being handled", action);
+
+    var parts = action.type.split(".");
+
+    if (!reducer[parts[0]] || !reducer[parts[0]][parts[1]])
+      throw new Error("Unknown action being handled ("+action.type+")", action);
+
+    console.log(action.type);
+
+    var result = parts.length > 1 ?
       reducer[parts[0]][parts[1]](state, action) :
       null;
 
-    if (result    &&
-      result.type &&
-      result.type.indexOf("."))
+    if (result)
       return result.length ?
         result.map(handle) :
         handle(result)
-
-    return result;
   };
 
   var game = {
@@ -55,7 +62,13 @@ function setup(ui, debug = false) {
     })
   )
 
-  Mousetrap.bind("abcdefghijklmnoqrstuvwxyz".split(''),
+  Mousetrap.bind("abcdefghijklmnoqrstuvwxyz"
+                .split('')
+                .concat(['.',',','/','?'],
+                        ['1','2','3','4','5','6','7','8','9','0'],
+                        ['esc','home','space',
+                         'pageup','pagedown',
+                         'enter','tab','capslock']),
     (event, key) =>
     game.handle("binding.evoke", {
       key
@@ -64,7 +77,7 @@ function setup(ui, debug = false) {
 
 
   window.onload = (e) => {
-    game.state.get().core.set('state', 'mainmenu');
+    game.handle("mainmenu.show")
   }
 
   if (!debug)
