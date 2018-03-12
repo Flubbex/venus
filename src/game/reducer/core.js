@@ -8,7 +8,7 @@ export default  {
   tick:(state,action)=>{
     state.get().core.set('time',
         state.get().core.time+action.duration);
-        
+
     return (Object.keys(state.get().map.enemy).length > 0
     ? Object.keys(state.get().map.enemy)
     .map((entityid)=>({type:"entity.tick",

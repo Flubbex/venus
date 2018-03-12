@@ -76,9 +76,19 @@ export default {
     body: state.get().player.inventory.map((item) => item.name)
   }),
   inventory: (state, action) => ({
-    type: "menu.show",
+    type: "boundlist.show",
     title: "Inventory",
-    body: state.get().player.inventory.map((item) => item.name)
+    state: "game_menu",
+    body: state.get().player.inventory.map((o,i)=>(
+        'abcdefghijklmnopqrstuvwxyz'[i]+" - "+o.name
+      )
+    ),
+    binds: state.get().player.inventory.map((o,i)=>({
+      state: "game_menu",
+      key:'abcdefghijklmnopqrstuvwxyz'[i],
+      action:{type:"player.showItem",
+              itemid:i}
+    }))
   }),
   ascend: (state, action) => (
   state.get().map.features[

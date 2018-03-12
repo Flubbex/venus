@@ -8,6 +8,7 @@ import binding   from './binding'
 import menu      from './menu'
 import mainmenu  from './mainmenu'
 import map       from './map'
+import boundlist from './boundlist'
 
 export {
   player,
@@ -19,5 +20,6 @@ export {
   binding,
   menu,
   mainmenu,
-  map
+  map,
+  boundlist
 }

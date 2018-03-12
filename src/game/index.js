@@ -1,7 +1,9 @@
 import ROT from 'rot-js';
 import Mousetrap from 'mousetrap';
+import store from 'store';
+import Freezer from 'freezer-js';
 
-import state from './state';
+import initialstate from './initialstate';
 
 import * as action from './action';
 
@@ -11,38 +13,43 @@ import {
   database
 } from './service';
 
-function setup(ui, debug = false) {
+window.onerror = () => store.remove('venus')
 
-  var handle = (action, args) => {
-    if (typeof(action) === "string")
-      action = Object.assign({
-        type: action
-      }, args);
+var state = new Freezer(store.get('venus')||initialstate);
 
-    if (!action.type)
-      throw new Error("Invalid action being handled", action);
+var handle = (action, args) => {
+  if (typeof(action) === "string")
+    action = Object.assign({
+      type: action
+    }, args);
 
-    var parts = action.type.split(".");
+  if (!action.type)
+    throw new Error("Invalid action being handled", action);
 
-    if (!reducer[parts[0]] || !reducer[parts[0]][parts[1]])
-      throw new Error("Unknown action being handled ("+action.type+")", action);
+  var parts = action.type.split(".");
 
-    console.log(action.type);
+  if (!reducer[parts[0]] || !reducer[parts[0]][parts[1]])
+    throw new Error("Unknown action being handled ("+action.type+")", action);
 
-    var result = parts.length > 1 ?
-      reducer[parts[0]][parts[1]](state, action) :
-      null;
+  console.log(action.type);
 
-    if (result)
-      return Array.isArray(result) ?
-        result.map(handle) :
-        handle(result)
-  };
+  var result = parts.length > 1 ?
+    reducer[parts[0]][parts[1]](state, action) :
+    null;
 
+  if (result)
+    return Array.isArray(result) ?
+      result.map(handle) :
+      handle(result)
+};
+
+
+var setup = (ui, debug = false) => {
   var game = {
     state,
     handle,
     database,
+    nuked:false,
     log: (message) => handle(action.console.log(message)),
     ui: ui.setup(state.get())
   };
@@ -67,9 +74,22 @@ function setup(ui, debug = false) {
     })
   )
 
+  window.nuke = () => {
+    game.nuked = true;
+    store.remove('venus');
+  }
+  window.onbeforeunload = () =>{
+
+    game.handle("core.savegame",{
+      slot:game.state.get().player.name
+    });
+
+    if (!game.nuked)
+      store.set('venus',game.state.get().toJS());
+  };
 
   window.onload = (e) => {
-    game.handle("mainmenu.show")
+    game.handle("mainmenu.show");
   }
 
   if (!debug)
@@ -79,6 +99,8 @@ function setup(ui, debug = false) {
   window.game = game;
   window.action = action;
   window.reducer = reducer;
+
+
 }
 
 export default setup

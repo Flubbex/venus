@@ -84,7 +84,8 @@ class Display extends Component {
   insertDisplay(node)
   {
     this.container = this.display.getContainer();
-    node.appendChild(this.container);
+    if (node && this.container)
+      node.appendChild(this.container);
   }
 
   render() {
