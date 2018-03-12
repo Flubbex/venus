@@ -3,14 +3,36 @@ import React from 'react';
 import {Minimap,Status,Display,Console} from './game';
 
 var config = {
+             layout: "tile",
              width:20,
              height:20,
              fontSize:18,
              fontFamily:"arial",
-             terrain :[".","#","|"]
+             tileWidth: 24,
+             tileHeight: 24,
+             bg:'transparant',
+             terrain :[".","#","|"],
+             tileMap: {
+                    ".": [0, 0],
+                    "#": [24, 0],
+                    "|": [72, 0],
+                    "@": [96, 0],
+                    "s":[0,24],
+                    "k":[28,24],
+                    "r":[24,24],
+                    "]": [72, 24],
+                    "a":[0,48],
+                    "p":[24,48],
+                    ">":[48,48],
+                    "<":[72,48]
+
+
+                },
              };
 
 var Tilelayout = (props) => {
+    config.tileSet = document.getElementById("tileset");
+    console.log(config)
     var displayState = {
                    config,
                    map:props.state.map,
@@ -18,6 +40,7 @@ var Tilelayout = (props) => {
                   },
         minimapState = {
                    config:Object.assign({},config,{
+                    layout:"rect",
                     width:33,
                     height:33,
                     fontSize:6,
