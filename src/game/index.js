@@ -5,13 +5,7 @@ import Freezer from 'freezer-js';
 
 import initialstate from './initialstate';
 
-import * as action from './action';
-
 import * as reducer from './reducer';
-
-import {
-  database
-} from './service';
 
 window.onerror = () => store.remove('venus')
 
@@ -31,7 +25,10 @@ var handle = (action, args) => {
   if (!reducer[parts[0]] || !reducer[parts[0]][parts[1]])
     throw new Error("Unknown action being handled ("+action.type+")", action);
 
-  console.log(action.type);
+  console.log(Math.floor(Date.now()/1000)
+              .toString()
+              .slice(6),
+              action.type);
 
   var result = parts.length > 1 ?
     reducer[parts[0]][parts[1]](state, action) :
@@ -48,9 +45,8 @@ var setup = (ui, debug = false) => {
   var game = {
     state,
     handle,
-    database,
     nuked:false,
-    log: (message) => handle(action.console.log(message)),
+    log: (body) => handle("console.log",{body}),
     ui: ui.setup(state.get())
   };
 
@@ -88,16 +84,14 @@ var setup = (ui, debug = false) => {
       store.set('venus',game.state.get().toJS());
   };
 
-  window.onload = (e) => {
-    game.handle("mainmenu.show");
-  }
+  game.handle("mainmenu.show");
+
 
   if (!debug)
     return
 
   window.ROT = ROT;
   window.game = game;
-  window.action = action;
   window.reducer = reducer;
 
 

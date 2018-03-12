@@ -17,7 +17,7 @@ class Display extends Component {
       return mapdata.enemy[x+','+y]
     if (mapdata.features[x+','+y])
       return mapdata.features[x+','+y]
-  if (mapdata.item[x+','+y])
+    if (mapdata.item[x+','+y])
       return mapdata.item[x+','+y]
   }
 
@@ -48,7 +48,9 @@ class Display extends Component {
       var tile = this.mapTile(tileinfo),
           object = this.objectAt(mapdata,tileinfo[0],tileinfo[1]);
 
-      tile[2] = object ? object.tile : tile[2];
+
+      tile[2] = (object ? object.tile || object[0].tile : tile[2])
+                || "?";
 
       offset.map((v,i)=>tile[i] += v)
 

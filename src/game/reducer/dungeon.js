@@ -1,10 +1,22 @@
 export default {
-  generate: (state, action) => ({
-    type: "map.generate"
+  generate: (state, action) => (
+    ["map.generate"].concat(
+        new Array(Math.floor(Math.random()*10))
+            .fill("generator.enemy"),
+        new Array(Math.floor(Math.random()*10))
+            .fill("generator.item")
+      )
+  ),
+  spawn: (state, action) => ({
+    type:"map.spawn",
+    entityid:action.entity.position.join(","),
+    data:action.entity
   }),
-  spawn: (state, action) => {
-    state.get().map.enemy.set(action.entityid, action.data)
-  },
+  drop: (state,action) => ({
+    type:"map.drop",
+    itemid:action.item.position.join(","),
+    data:action.item
+  }),
   save: (state, action) => {
     state.get().dungeon.mapset.set(action.level ||
       state.get().dungeon.level,

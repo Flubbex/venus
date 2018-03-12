@@ -31,7 +31,8 @@ export default  {
   },
   loadgame:(state,action)=>{
     state.set(state.get().savegame.container[action.slot])
-    return {type:"core.savegame",slot:action.slot}
+    return [{type:"core.savegame",slot:action.slot},
+    "mainmenu.hide"]
   },
   savegame:(state,action)=>{
     state.get().savegame.container.set(action.slot,state.get().toJS())

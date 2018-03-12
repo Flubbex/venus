@@ -17,6 +17,12 @@ const initialstate = {
       "loadgame":{
         "esc":"mainmenu.show"
       },
+      "creator_0":{
+        "esc":"mainmenu.show"
+      },
+      "creator_1":{
+        "esc":"creator.show"
+      },
       "game_menu": {
         "esc": "menu.hide"
       },

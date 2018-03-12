@@ -11,7 +11,7 @@ export default  {
                         action.size[1],
                         action.config),
       terrain = {},
-      enemy   = {"5,5":{tile:"r",position:[5,5]}},
+      enemy   = {},
       item    = {};
 
   map.create((x,y,value)=>terrain[x+","+y] = value)
@@ -45,6 +45,11 @@ export default  {
   },
   spawn:(state,action)=>{
     state.get().map.enemy.set(action.entityid,action.data)
+  },
+  drop:(state,action)=>{
+    state.get().map.item[action.itemid]
+    ?  state.get().map.item[action.itemid].push(action.data)
+    :  state.get().map.item.set(action.itemid,[action.data])
   },
   load:(state,action)=>{
     state.get().set('map',action.map)

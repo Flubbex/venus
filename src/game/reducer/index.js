@@ -9,6 +9,9 @@ import menu      from './menu'
 import mainmenu  from './mainmenu'
 import map       from './map'
 import boundlist from './boundlist'
+import ai        from './ai'
+import creator   from './creator'
+import generator from './generator'
 
 export {
   player,
@@ -21,5 +24,8 @@ export {
   menu,
   mainmenu,
   map,
-  boundlist
+  boundlist,
+  ai,
+  creator,
+  generator
 }

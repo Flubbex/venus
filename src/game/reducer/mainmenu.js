@@ -18,10 +18,9 @@ export default {
     }
   ),
 
-  newgame:(state,action)=>({
-    type:"core.newgame"
-    //type: "creator.show"
-  }),
+  newgame:(state,action)=>(
+    ["core.newgame","creator.show"]
+  ),
 
   loadgame:(state,action)=>({
     type:"boundlist.show",

@@ -6,21 +6,23 @@ var Status = (props)=>{
       <div className="tile is-child">
         <h1 className="is-size-5">Status</h1>
         <ul>
-          <li>Name:   {props.state.player.name}             </li>
-          <li>Time:   {props.state.time}                    </li>
-          <li>Health: {props.state.player.health.join('/')} </li>
-          <li>Mana:   {props.state.player.mana.join('/')}   </li>
-          <li>XL:     {props.state.player.xl}               </li>
-          <li>AC:     {props.state.player.ac}               </li>
-          <li>EV:     {props.state.player.ev}               </li>
-          <li>EXP:    {props.state.player.exp} (0% TNL)     </li>
+          <li>Name:       {props.state.player.name}             </li>
+          <li>Background: {props.state.player.background}       </li>
+          <li>Class:      {props.state.player.classname}        </li>
+          <li>Time:       {props.state.time}                    </li>
+          <li>Health:     {props.state.player.health.join('/')} </li>
+          <li>Mana:       {props.state.player.mana.join('/')}   </li>
+          <li>XL:         {props.state.player.xl}               </li>
+          <li>AC:         {props.state.player.ac}               </li>
+          <li>EV:         {props.state.player.ev}               </li>
+          <li>EXP:        {props.state.player.exp} (0% TNL)     </li>
         </ul>
       </div>
-      
+
       <div className="tile is-child">
         <h1 className="is-size-5">Attributes</h1>
         <ul>
-          <li><span>Strength:</span> 
+          <li><span>Strength:</span>
               <span>{props.state.player.attributes.strength}</span>
           </li>
           <li>
@@ -31,7 +33,7 @@ var Status = (props)=>{
               <span>Intelligence:</span>
               <span>{props.state.player.attributes.intelligence}</span>
           </li>
-        
+
         </ul>
         <h1 className="is-size-5">Affects</h1>
         <ul>
