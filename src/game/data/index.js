@@ -1,11 +1,7 @@
-import enemy    from './enemy'
-import item     from './item'
-import terrain  from './terrain'
-import feature  from './feature'
-
-export default {
-  enemy,
-  item,
-  terrain,
-  feature
-}
+export { default as enemy      } from './enemy'
+export { default as item       } from './item'
+export { default as terrain    } from './terrain'
+export { default as feature    } from './feature'
+export { default as menu       } from './menu'
+export { default as race       } from './race'
+export { default as background } from './background'

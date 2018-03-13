@@ -10,9 +10,10 @@ export default  {
                        (action.size[0],
                         action.size[1],
                         action.config),
-      terrain = {},
-      enemy   = {},
-      item    = {};
+      terrain  = {},
+      enemy    = {},
+      visible  = {},
+      item     = {};
 
   map.create((x,y,value)=>terrain[x+","+y] = value)
 
@@ -32,14 +33,23 @@ export default  {
 
   state.get().player.set('position',[rooms[0]._x1,rooms[0]._y1]);
 
+  var explored = {};
+
+  rooms[0].create((x,y,v)=>{
+    explored[x+","+y]= v;
+    visible[x+","+y] = v;
+  })
+
   state.get().set('map',{
       key:action.key,
       size:action.size,
       terrain,
+      visible,
       enemy,
       item,
       rooms,
       halls,
+      explored,
       features
     })
   },

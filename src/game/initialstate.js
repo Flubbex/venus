@@ -10,10 +10,10 @@ const initialstate = {
   },
   binding: {
     container: {
-      "mainmenu": {
+      /*"mainmenu": {
         "n": "mainmenu.newgame",
         "l": "mainmenu.loadgame"
-      },
+      },*/
       "loadgame":{
         "esc":"mainmenu.show"
       },
@@ -76,6 +76,8 @@ const initialstate = {
   },
   player: {
     name: "Player",
+    background:"adventurer",
+    race:"human",
     position: [0, 0],
     health: [10, 10],
     mana: [3, 3],

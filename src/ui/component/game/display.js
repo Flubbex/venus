@@ -34,7 +34,7 @@ class Display extends Component {
       throw new Error("Renderer received invalid mapdata",mapdata);
 
     this.display.clear();
-    Object.keys(mapdata.terrain).map((tilepos)=>{
+    Object.keys(mapdata.visible).map((tilepos)=>{
       var tileinfo = tilepos.split(",")
                      .map((e)=>parseInt(e,10))
                      .concat(mapdata.terrain[tilepos])

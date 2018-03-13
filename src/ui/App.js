@@ -11,12 +11,14 @@ class App extends Component {
         <section className="App-header hero is-primary is-hidden-mobile">
           <div className="hero-footer">
             <Navbar/>
-          </div>        
+          </div>
         </section>
-        
+
         <Tilelayout state={this.props.state}/>
-        
+
         <Overlay state={this.props.state}/>
+
+        <img src='tileset.png' id="tileset" alt="tileset" style={{display:"none"}}/>
       </div>
     );
   }

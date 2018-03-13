@@ -9,12 +9,12 @@ export default  {
     state.get().core.set('time',
         state.get().core.time+action.duration);
 
-    return (Object.keys(state.get().map.enemy).length > 0
-    ? Object.keys(state.get().map.enemy)
-    .map((entityid)=>({type:"entity.tick",
-                       duration:action.duration,
-                       entityid}))
-    : [])
+    var enemies = Object.keys(state.get().map.enemy);
+    return enemies.length > 0
+    ? enemies.map((entityid)=>({type:"entity.tick",
+                           duration:action.duration,
+                           entityid}))
+    : []
   },
   newgame:(state,action)=>{
     state.get().console.messages.push({

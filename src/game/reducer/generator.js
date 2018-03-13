@@ -1,4 +1,4 @@
-import database from '../data';
+import {item,enemy} from '../data';
 
 export default {
   player: (state, action) => {
@@ -12,10 +12,10 @@ export default {
           .filter((e) => state.get().map.terrain[e] === 0)
           .random().split(",").map((e)=>parseInt(e,10))
       },
-      database.item[action.name ||
-        Object.keys(database.item)[
+      item[action.name ||
+        Object.keys(item)[
           Math.floor(
-            Math.random() * Object.keys(database.item).length
+            Math.random() * Object.keys(item).length
           )
         ]
       ])
@@ -23,15 +23,17 @@ export default {
   enemy: (state, action) => ({
     type: "dungeon.spawn",
     entity: Object.assign({
+        failedmove:0,
+        energy:1,
         position: action.position ||
           Object.keys(state.get().map.terrain)
           .filter((e) => state.get().map.terrain[e] === 0)
           .random().split(",").map((e)=>parseInt(e,10))
       },
-      database.enemy[action.name ||
-        Object.keys(database.enemy)[
+      enemy[action.name ||
+        Object.keys(enemy)[
           Math.floor(
-            Math.random() * Object.keys(database.enemy).length
+            Math.random() * Object.keys(enemy).length
           )
         ]
       ])

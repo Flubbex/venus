@@ -7,8 +7,8 @@ var Status = (props)=>{
         <h1 className="is-size-5">Status</h1>
         <ul>
           <li>Name:       {props.state.player.name}             </li>
+          <li>Race:       {props.state.player.race}             </li>
           <li>Background: {props.state.player.background}       </li>
-          <li>Class:      {props.state.player.classname}        </li>
           <li>Time:       {props.state.time}                    </li>
           <li>Health:     {props.state.player.health.join('/')} </li>
           <li>Mana:       {props.state.player.mana.join('/')}   </li>

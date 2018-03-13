@@ -7,6 +7,8 @@ import initialstate from './initialstate';
 
 import * as reducer from './reducer';
 
+import R from './helper/resistance';
+
 window.onerror = () => store.remove('venus')
 
 var state = new Freezer(store.get('venus')||initialstate);
@@ -25,10 +27,7 @@ var handle = (action, args) => {
   if (!reducer[parts[0]] || !reducer[parts[0]][parts[1]])
     throw new Error("Unknown action being handled ("+action.type+")", action);
 
-  console.log(Math.floor(Date.now()/1000)
-              .toString()
-              .slice(6),
-              action.type);
+  //console.log(Math.floor(Date.now()/1000).toString().slice(6),action);
 
   var result = parts.length > 1 ?
     reducer[parts[0]][parts[1]](state, action) :
@@ -36,7 +35,9 @@ var handle = (action, args) => {
 
   if (result)
     return Array.isArray(result) ?
-      result.map(handle) :
+      R.parallel(result.map((action)=>
+       (now) => now(handle(action))
+     ),R.instant) :
       handle(result)
 };
 
@@ -64,10 +65,12 @@ var setup = (ui, debug = false) => {
                         ['esc','home','space','end',
                          'pageup','pagedown',
                          'enter','tab','capslock']),
-    (event, key) =>
-    game.handle("binding.evoke", {
-      key
-    })
+    (event, key) =>{
+      game.handle("binding.evoke", {
+        key
+      });
+      event.preventDefault();
+    }
   )
 
   window.nuke = () => {

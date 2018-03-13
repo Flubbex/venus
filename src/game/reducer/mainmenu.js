@@ -1,15 +1,11 @@
-const menudata = {
-  title:"VENUS",
-body: [{key:0,  body:"[N]ew  Game"},
-       {key:1,  body:"[L]oad Game"}]
-};
+import {menu} from '../data';
 
 export default {
-  show:(state,action)=>{
-    state.get()
-         .set('overlay',menudata);
-    state.get().core.set('state','mainmenu');
-  },
+  show:(state,action)=>(
+    Object.assign({
+      type:"boundlist.show",
+    },menu.main)
+  ),
 
   hide:(state,action)=>(
     {
