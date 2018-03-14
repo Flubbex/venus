@@ -7,15 +7,19 @@ export default {
       state.get().binding.container.set(action.context,
       {})[action.context].set(action.key,action.action)
   },
-  evoke: (state, action) => (state.get()
-    .binding
-    .container[state.get().core.state] &&
-    state.get()
-    .binding
-    .container[state.get().core.state][action.key]
+  evoke: (state, action) => (
+    !state.get()
+    .core['locked']
     ? state.get()
-        .binding
-        .container[state.get().core.state][action.key]
+      .binding
+      .container[state.get().core.state] &&
+      state.get()
+      .binding
+      .container[state.get().core.state][action.key]
+      ? state.get()
+          .binding
+          .container[state.get().core.state][action.key]
+      : null
     : null
    )
 }

@@ -37,7 +37,6 @@ export default  {
 
   rooms[0].create((x,y,v)=>{
     explored[x+","+y]= v;
-    visible[x+","+y] = v;
   })
 
   state.get().set('map',{
@@ -52,9 +51,12 @@ export default  {
       explored,
       features
     })
+
+    return "fov.generate"
   },
   spawn:(state,action)=>{
-    state.get().map.enemy.set(action.entityid,action.data)
+    state.get().map.enemy.set(action.entity.position.join(","),
+                              action.entity)
   },
   drop:(state,action)=>{
     state.get().map.item[action.itemid]

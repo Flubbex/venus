@@ -81,6 +81,7 @@ export default {
   },
   hurt:(state,action)=>{
     var entity = state.get().map.enemy[action.entityid];
+
     entity.set('health',entity.health-action.amount);
 
     if (entity.health < 0 )

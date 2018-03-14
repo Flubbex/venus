@@ -11,78 +11,31 @@ var modifier = [
 
 export default {
   move: (state, action) => {
-    var enemy =
+    var entity =
       state.get()
       .player,
 
-      pos = enemy.position,
+      pos = entity.position,
 
       newpos = pos.map((e, i) =>
-        e + modifier[action.direction][i]);
+        e + modifier[action.direction][i]),
+        joined = newpos.join(",");
 
-    if (state.get().map.enemy[newpos.join(",")])
+    if (state.get().map.enemy[joined])
     return {
       type: "player.attack",
-      target:newpos.join(",")
+      target:joined
     }
-    else if (state.get().map.terrain[newpos.join(",")] === 0) {
-      enemy.set({
+    else if (state.get().map.terrain[joined] === 0) {
+      entity.set({
         position: newpos
       });
 
-      var visible = {};
-
-      var in_room = state.get().map.rooms.map((room)=>{
-         if (newpos[0] >= room._x1-1 &&
-             newpos[0] <= room._x2+1 &&
-             newpos[1] >= room._y1-1 &&
-             newpos[1] <= room._y2+1)
-             {
-               room.create((x,y,v)=>{
-                var key = x+","+y;
-                state.get().map.explored.set(key,v)
-                visible[key] = v;
-                })
-               return true;
-             }
-         else
-          return false
-       })
-
-      if (in_room.indexOf(true)===-1)
-        state.get().map.halls.map((hallway)=>{
-           var start,end;
-           if (hallway._startX < hallway.endX)
-           {
-            start = [hallway._startX,hallway._startY]
-            end = [hallway._endX,hallway._endY]
-          }
-           else
-          {
-            start = [hallway._endX,hallway._endY]
-            end = [hallway._startX,hallway._startY]
-          }
-
-          if (newpos[0] >= start[0]-1 &&
-              newpos[0] <= end[0]+1 &&
-              newpos[1] >= start[1]-1 &&
-              newpos[1] <= end[1]+1)
-            {
-              hallway.create((x,y,v)=>{
-               var key = x+","+y;
-               state.get().map.explored.set(key,v)
-               visible[key] = v;
-               })
-            }
-            return null
-         })
-
-      state.get().map.set('visible',visible);
-
-      return {
+      return ["core.series",{set:[{
         type: "core.tick",
-        duration: enemy.movespeed
-      }
+        duration: entity.movespeed
+      },"fov.generate"]}
+      ]
     } else {
       return {
         type: "console.log",
@@ -95,20 +48,21 @@ export default {
     var player = state.get().player;
 
     if (Math.random()*enemy.ev>player.ac)
-    return [{
+    return ["core.series",{set:[{
       type: "console.log",
       body: "You fail pathetically trying to to hit the "+enemy.name
     },{
       type: "core.tick",
       duration: 1
-    }]
+    }]}]
+
     var amount = Math.floor(
       Math.random()*
       state.get().player.attributes.strength
       )
 
     if (amount > 0)
-      return [{
+      return ["core.series",{set:[{
         type: "console.log",
         body: "You hit the "+enemy.name+" ["+amount+"]"
       },{
@@ -119,7 +73,7 @@ export default {
       },{
         type: "core.tick",
         duration: 1
-      }]
+      }]}];
 
   },
   eat: (state, action) => ({
@@ -177,25 +131,30 @@ export default {
               itemid:i}
     }))
   }),
-  ascend: (state, action) => (
-  state.get().map.features[
-    state.get().player.position.join(",")
-  ] && state.get().map.features[
-    state.get().player.position.join(",")
-  ].type === "stairway"
-   &&
-   state.get().map.features[
-     state.get().player.position.join(",")
-   ].direction === "up"
-  ? {
-    type: "dungeon.ascend"
-    }
-  : {
-    type: "console.log",
-    body: "You can't go up here"
-    }
-  ),
-  descend: (state, action) => ({
-    type: "dungeon.descend"
-  })
+  ascend: (state, action) => {
+  var pos = state.get().player.position.join(",");
+  return state.get().map.features[pos] &&
+         state.get().map.features[pos].type === "stairway" &&
+         state.get().map.features[pos].direction === "up"
+    ? {
+      type: "dungeon.ascend"
+      }
+    : {
+      type: "console.log",
+      body: "You can't go up here"
+      }
+  },
+  descend: (state, action) => {
+  var pos = state.get().player.position.join(",");
+  return state.get().map.features[pos] &&
+         state.get().map.features[pos].type === "stairway" &&
+         state.get().map.features[pos].direction === "down"
+    ? {
+      type: "dungeon.descend"
+      }
+    : {
+      type: "console.log",
+      body: "You can't go down here"
+      }
+  }
 }

@@ -1,6 +1,7 @@
 export default {
   show: (state, action) => (
-    [{
+    ["core.series",
+    {set:[{
       type: "menu.show",
       title: action.title,
       body: action.body,
@@ -14,7 +15,7 @@ export default {
         action: bind.action
       }))
       : []
-      )
+    )}]
     ),
     hide: (state, action) => ({
       type: "menu.hide",

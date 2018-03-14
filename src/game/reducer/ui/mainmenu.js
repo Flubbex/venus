@@ -1,4 +1,4 @@
-import {menu} from '../data';
+import {menu} from '../../data';
 
 export default {
   show:(state,action)=>(
@@ -15,7 +15,7 @@ export default {
   ),
 
   newgame:(state,action)=>(
-    ["core.newgame","creator.show"]
+    {type:"core.series",set:["core.newgame","creator.show"]}
   ),
 
   loadgame:(state,action)=>({

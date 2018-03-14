@@ -1,4 +1,4 @@
-import {menu} from '../data';
+import {menu} from '../../data';
 
 export default {
   show: (state, action) => (

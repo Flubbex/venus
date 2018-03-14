@@ -1,4 +1,4 @@
-import {item,enemy} from '../data';
+import {item,enemy} from '../../data';
 
 export default {
   player: (state, action) => {
@@ -21,7 +21,7 @@ export default {
       ])
   }),
   enemy: (state, action) => ({
-    type: "dungeon.spawn",
+    type: "map.spawn",
     entity: Object.assign({
         failedmove:0,
         energy:1,

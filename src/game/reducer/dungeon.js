@@ -1,17 +1,19 @@
 export default {
   generate: (state, action) => (
-    ["map.generate"].concat(
+  ["core.series",{
+    set:[
+        "map.generate",
+        ["core.async",{set:[].concat(
         new Array(Math.floor(Math.random()*10))
             .fill("generator.enemy"),
         new Array(Math.floor(Math.random()*10))
             .fill("generator.item")
-      )
+      )}
+    ]]
+    }
+  ]
   ),
-  spawn: (state, action) => ({
-    type:"map.spawn",
-    entityid:action.entity.position.join(","),
-    data:action.entity
-  }),
+  spawn: (state, action) => ("generator.enemy"),
   drop: (state,action) => ({
     type:"map.drop",
     itemid:action.item.position.join(","),
@@ -28,17 +30,7 @@ export default {
       state.get().dungeon.level]
   }),
   ascend: (state, action) => (
-    state.get().map.features[
-      state.get().player.position.join(",")
-    ] &&
-    state.get().map.features[
-      state.get().player.position.join(",")
-    ].type === "stairway"
-      &&
-    state.get().map.features[
-      state.get().player.position.join(",")
-    ].direction === "up"
-    ? state.get().dungeon.level > 0
+    state.get().dungeon.level > 0
       ?   state.get().dungeon.set('level',
           state.get().dungeon.level - 1) &&
           state.get().dungeon.mapset[state.get().dungeon.level]
@@ -59,41 +51,22 @@ export default {
           type:"console.log",
           body:"That would leave the dungeon"
        }
-    :{
-        type:"console.log",
-        body:"You can't go up here"
-     }
   ),
   descend: (state, action) => (
-    state.get().map.features[
-      state.get().player.position.join(",")
-    ] &&
-    state.get().map.features[
-      state.get().player.position.join(",")
-    ].type === "stairway"
-      &&
-    state.get().map.features[
-      state.get().player.position.join(",")
-    ].direction === "down"
-    ?   state.get().dungeon.set('level',
-        state.get().dungeon.level + 1) &&
-        state.get().dungeon.mapset[state.get().dungeon.level]
-        ? {
-           type: "dungeon.load"
-          }
-        : [{
-            type: "dungeon.generate"
-          },
-          {
-            type: "dungeon.save"
-          },
-          {
-            type: "console.log",
-            body: "You descend the dungeon"
-          }]
-  :{
-      type:"console.log",
-      body:"You can't go down here"
-   }
+  state.get().dungeon.set('level',state.get().dungeon.level + 1) &&
+      state.get().dungeon.mapset[state.get().dungeon.level]
+      ? {
+         type: "dungeon.load"
+        }
+      : [{
+          type: "dungeon.generate"
+        },
+        {
+          type: "dungeon.save"
+        },
+        {
+          type: "console.log",
+          body: "You descend the dungeon"
+        }]
   ),
 }

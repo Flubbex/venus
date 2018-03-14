@@ -3,7 +3,6 @@ import React from 'react';
 import Nearby from "../game/nearby";
 import Display from "../game/display";
 
-
 class Minimap extends Display {
 
   renderMap(mapdata){
